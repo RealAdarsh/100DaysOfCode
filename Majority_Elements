@@ -1,0 +1,62 @@
+Problem Description
+Given an array of size N, find the majority element. The majority element is the element that appears more than floor(n/2) times.
+You may assume that the array is non-empty and the majority element always exists in the array.
+
+
+
+Problem Constraints
+1 <= N <= 5*105
+1 <= num[i] <= 109
+
+
+Input Format
+Only argument is an integer array.
+
+
+Output Format
+Return an integer.
+
+
+Example Input
+[2, 1, 2]
+
+
+Example Output
+2
+
+
+Example Explanation
+2 occurs 2 times which is greater than 3/2.
+
+
+Approach:  Moor's Vote Algorithm: When we cancel out two distinct elements, the element that is in majority will still be in majority. 
+
+
+Solution: 
+
+int Solution::majorityElement(const vector<int> &A) {
+
+    int ME=A[0];
+    int count=1;
+
+    for (int i=1; i<A.size(); i++){
+
+        if (count==0){
+            ME=A[i];
+        }
+
+        else if (ME==A[i]){
+            count ++;
+        }
+
+        else count--;
+    }
+    count=0;
+    for (int i=0; i<A.size(); i++){
+        if (ME==A[i])count++;
+    }
+
+    if (count>A.size()/2) return ME;
+    return -1;
+}
+
