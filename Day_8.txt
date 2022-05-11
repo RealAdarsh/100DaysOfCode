@@ -1,0 +1,3 @@
+Studied basics of Computer science
+Studied hashing. 
+Studied hashset and hashmap
