@@ -1,0 +1,118 @@
+Problem Description
+Design and implement a Linked List data structure.
+A node in a linked list should have the following attributes - an integer value and a pointer to the next node. It should support the following operations:
+
+insert_node(position, value) - To insert the input value at the given position in the linked list.
+delete_node(position) - Delete the value at the given position from the linked list.
+print_ll() - Print the entire linked list, such that each element is followed by a single space.
+Note:
+
+If an input position does not satisfy the constraint, no action is required.
+Each print query has to be executed in a new line.
+
+
+Problem Constraints
+1 <= position <= n where, n is the size of the linked-list.
+
+
+
+Input Format
+First line contains an integer denoting number of cases, let's say t.
+Next t line denotes the cases.
+
+
+Output Format
+When there is a case of print_ll(),  Print the entire linked list, such that each element is followed by a single space.
+NOTE: You don't need to return anything.
+
+
+Example Input
+5
+i 1 23
+i 2 24
+p
+d 1
+p
+
+
+Example Output
+23 24
+24
+
+
+Example Explanation
+After first two cases linked list contains two elements 23 and 24.
+At third case print: 23 24.
+At fourth case delete value at first position, only one element left 24.
+At fifth case print: 24.
+
+
+
+Solution:
+
+
+#include<iostream>
+using namespace std;
+
+typedef class Node{
+    public:
+        int data;
+        Node *next;
+}Node;
+
+Node *createNode(int val){
+    Node *temp=new Node();
+    temp->next=NULL;
+    temp->data=val;
+    return temp;
+}
+
+Node *head = createNode(INT_MIN);
+int ll_size=0;
+
+void insert_node(int position, int value) {
+    if (position > ll_size+1){
+        return;
+    }
+
+    Node *traverse=head;
+
+    for (int i=0; i<position-1; i++){
+        traverse=traverse->next;
+    }
+
+    Node *newNode = createNode(value);
+    newNode->next=traverse->next;
+    traverse->next=newNode;
+    ll_size++;
+}
+
+void delete_node(int position) {
+    // @params position, integer
+    if(position>ll_size) return;
+    Node *traverse=head;
+
+    for (int i=0; i<position-1; i++){
+        traverse=traverse->next;
+    }
+
+    traverse->next=traverse->next->next;
+
+    ll_size--;
+}
+
+
+void print_ll() {
+    if (ll_size==0) return;
+
+    Node *traverse=head->next;
+
+    while (traverse->next!=NULL){
+        cout << traverse->data << " ";
+        traverse=traverse->next;
+    }
+
+    cout << traverse->data;
+
+}
+
