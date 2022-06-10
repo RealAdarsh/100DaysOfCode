@@ -1,0 +1,29 @@
+Given two binary strings, return their sum (also a binary string).
+Example:
+
+a = "100"
+
+b = "11"
+Return a + b = "111".
+
+
+Solution: 
+
+
+string Solution::addBinary(string A, string B) {
+    int i=A.size()-1;
+    int j=B.size()-1;
+    int carry=0;
+    string sol="";
+
+    while (i>=0 || j>=0 || carry==1){
+        if (i>=0) carry+=(A[i--]-'0');
+        if (j>=0) carry+=(B[j--]-'0');
+        int digit=carry%2;
+        carry=carry/2;
+        sol=char(digit+'0') + sol;
+    }
+
+    return sol;
+}
+
