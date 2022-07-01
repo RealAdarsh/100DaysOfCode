@@ -1,0 +1,92 @@
+Problem Description
+Given an even number A ( greater than 2 ), return two prime numbers whose sum will be equal to the given number.
+
+If there is more than one solution possible, return the lexicographically smaller solution.
+
+If [a, b] is one solution with a <= b, and [c,d] is another solution with c <= d, then 
+[a, b] < [c, d], If a < c OR a==c AND b < d. 
+NOTE: A solution will always exist. Read Goldbach's conjecture.
+
+
+
+Problem Constraints
+4 <= A <= 2*107
+
+
+
+Input Format
+First and only argument of input is an even number A.
+
+
+
+Output Format
+Return a integer array of size 2 containing primes whose sum will be equal to given number.
+
+
+
+Example Input
+ 4
+
+
+Example Output
+ [2, 2]
+
+
+Example Explanation
+ There is only 1 solution for A = 4.
+
+
+ Solution:
+
+ /*vector <int> findMin(vector <int> a, vector <int> b){
+    if ((a[0]<=b[0]) && (a[1]<b[1])){
+        return a;
+    }
+    return b;
+}*/
+
+
+vector<int> Solution::primesum(int A) {
+    vector <bool> seive (A+1,true);
+    seive[0]=false;
+    seive[1]=false;
+    //unordered_set <int> us;
+    vector <int> sol;
+    int c=INT_MAX;
+    int d=INT_MAX;
+
+    for (int i=2; i*i<seive.size(); i++){
+
+        if (seive[i]==true){
+            for (int j=i*i; j<seive.size(); j+=i){
+                seive[j]=false;
+            }
+
+        }
+
+    }
+
+    /*for (int i=0; i<seive.size(); i++){
+        if (seive[i]==1){
+            us.insert(i);
+        }
+    }*/
+
+    for (int i=2; i<=A/2; i++){
+        if ((seive[i]==true) && (seive[A-i]==true)){
+            int a=i;
+            int b=A-i;
+
+            if ((a<c) && (b<d)){
+                c=a;
+                d=b;
+            }
+
+        }
+    }
+    sol.push_back(c);
+    sol.push_back(d);
+
+    return sol;
+}
+
