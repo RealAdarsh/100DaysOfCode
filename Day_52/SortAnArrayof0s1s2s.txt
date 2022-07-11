@@ -1,0 +1,150 @@
+https://practice.geeksforgeeks.org/problems/sort-an-array-of-0s-1s-and-2s4231/1#
+
+
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+ // } Driver Code Ends
+class Solution
+{
+    public:
+    void sort012(int a[], int n)
+    {
+        // code here 
+        
+        long long zeroes=0; 
+        long long ones=0; 
+        long long twos=0; 
+        
+        for (int i=0; i<n; i++){
+            if(a[i]==0) zeroes++; 
+            if (a[i]==1) ones++; 
+            if (a[i]==2) twos++; 
+        }
+        
+        for (int i=0; i<n; i++){
+            if (zeroes){
+                a[i]=0;
+                zeroes--; 
+            }
+            
+            else if(ones){
+                a[i]=1;
+                ones--; 
+            }
+            
+            else if(twos) {
+                a[i]=2; 
+                twos--;
+            }
+        }
+    }
+    
+};
+
+// { Driver Code Starts.
+int main() {
+
+    int t;
+    cin >> t;
+
+    while(t--){
+        int n;
+        cin >>n;
+        int a[n];
+        for(int i=0;i<n;i++){
+            cin >> a[i];
+        }
+
+        Solution ob;
+        ob.sort012(a, n);
+
+        for(int i=0;i<n;i++){
+            cout << a[i]  << " ";
+        }
+
+        cout << endl;
+        
+        
+    }
+    return 0;
+}
+
+  // } Driver Code Ends
+
+
+
+
+Solution:2
+
+
+
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+ // } Driver Code Ends
+class Solution
+{
+    public:
+    void sort012(int a[], int n)
+    {
+        // code here 
+        int low=0; 
+        int mid=0; 
+        int high=n-1; 
+        
+        while (mid <= high){
+            if (a[mid]==0){
+                swap(a[mid], a[low]); 
+                low++; 
+                mid++; 
+            }
+            
+            else if (a[mid]==1){
+                mid++; 
+            }
+            
+            else {
+                swap(a[mid],a[high]); 
+                high--; 
+            }
+        }
+    }
+    
+};
+
+// { Driver Code Starts.
+int main() {
+
+    int t;
+    cin >> t;
+
+    while(t--){
+        int n;
+        cin >>n;
+        int a[n];
+        for(int i=0;i<n;i++){
+            cin >> a[i];
+        }
+
+        Solution ob;
+        ob.sort012(a, n);
+
+        for(int i=0;i<n;i++){
+            cout << a[i]  << " ";
+        }
+
+        cout << endl;
+        
+        
+    }
+    return 0;
+}
+
+  // } Driver Code Ends

@@ -1,0 +1,3 @@
+Find the “Kth” max and min element of an array	- Learn Quick Sort ->https://practice.geeksforgeeks.org/problems/kth-smallest-element5635/1
+
+
