@@ -1,0 +1,123 @@
+Problem Description
+Given an array of integers A, we call (i, j) an important reverse pair if i < j and A[i] > 2*A[j].
+Return the number of important reverse pairs in the given array A.
+
+
+
+Problem Constraints
+1 <= length of the array <= 105
+
+-2 * 109 <= A[i] <= 2 * 109
+
+
+
+Input Format
+The only argument given is the integer array A.
+
+
+
+Output Format
+Return the number of important reverse pairs in the given array A.
+
+
+
+Example Input
+Input 1:
+
+ A = [1, 3, 2, 3, 1]
+Input 2:
+
+ A = [4, 1, 2]
+
+
+Example Output
+Output 1:
+
+ 2
+Output 2:
+
+ 1
+
+
+Example Explanation
+Explanation 1:
+
+ There are two pairs which are important reverse i.e (3, 1) and (3, 1).
+Explanation 2:
+
+ There is only one pair i.e (4, 1).
+
+
+ Solution:
+
+ int intraReversePair(vector <int> &A, int start, int mid, int end){
+    int i=start;
+    int j=mid+1;
+    int index=0;
+    int count=0;
+    vector <int> temp (end-start+1);
+
+   while (i<=mid && j<=end){
+       if ((long)A[i] > 2*(long)A[j]){
+           j++;
+           count=count+mid-i+1;
+       }
+       else {
+           i++;
+       }
+   }
+
+    i=start;
+    j=mid+1;
+
+    while (i<=mid && j<=end){
+        if (A[i] > A[j]){
+            temp[index++]=A[j++];
+        }
+
+        else {
+            temp[index++]=A[i++];
+        }
+    }
+
+    while (i<=mid){
+        temp[index++]=A[i++];
+    }
+
+    while (j<=end){
+        temp[index++]=A[j++];
+    }
+
+    index=0;
+
+    for (int i=start; i<=end; i++){
+        A[i]=temp[index++];
+    }
+
+    return count;
+}
+
+
+int reversePair(vector <int> &A, int start, int end){
+    // base case
+    if (start>=end) return 0;
+
+    // recursion
+    int mid=start + (end-start)/2;
+
+    int B= reversePair(A, start, mid);
+    int C= reversePair(A, mid+1, end);
+    int D= intraReversePair(A, start, mid, end);
+
+    return D+B+C;
+}
+
+
+
+
+
+int Solution::solve(vector<int> &A) {
+    int n=A.size()-1;
+    return reversePair(A,0,n);
+}
+
