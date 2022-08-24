@@ -1,0 +1,109 @@
+Problem Description
+You are given a linked list that contains a loop.
+You need to find the node, which creates a loop and break it by making the node point to NULL.
+
+
+
+Problem Constraints
+1 <= number of nodes <= 1000
+
+
+
+Input Format
+Only argument is the head of the linked list.
+
+
+
+Output Format
+return the head of the updated linked list.
+
+
+
+Example Input
+Input 1:
+
+ 
+1 -> 2
+^    |
+| - - 
+Input 2:
+
+3 -> 2 -> 4 -> 5 -> 6
+          ^         |
+          |         |    
+          - - - - - -
+
+
+Example Output
+Output 1:
+
+ 1 -> 2 -> NULL
+Output 2:
+
+ 3 -> 2 -> 4 -> 5 -> 6 -> NULL
+
+
+Example Explanation
+Explanation 1:
+
+ Chain of 1->2 is broken.
+Explanation 2:
+
+ Chain of 4->6 is broken.
+
+ Solution:
+
+ /**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+ListNode *startOfLoop(ListNode *A){
+    ListNode *fast=A; 
+    ListNode *slow=A; 
+    int flag=1; 
+
+    while(fast->next!=NULL && fast->next->next!=NULL){
+        slow=slow->next; 
+        fast=fast->next->next;
+        if (fast==slow){
+            flag=0; 
+            break;  
+        }
+    }
+
+    if(flag){
+        return NULL; 
+    }
+
+    ListNode *slow2=A; 
+
+    while(true){
+        if (slow==slow2) return slow; 
+        slow=slow->next; 
+        slow2=slow2->next; 
+    }
+
+    return NULL; 
+}
+
+ListNode* Solution::solve(ListNode* A) {
+    ListNode *startLoop=startOfLoop(A); 
+
+    ListNode *curr=startLoop; 
+
+    while(true){
+        if (curr->next==startLoop){
+            curr->next=NULL; 
+            break; 
+        }
+        curr=curr->next; 
+    }
+
+    return A; 
+}
+
