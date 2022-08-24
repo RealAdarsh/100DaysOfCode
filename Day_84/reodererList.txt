@@ -1,0 +1,114 @@
+Problem Description
+Given a singly linked list A
+
+ A: A0 → A1 → … → An-1 → An 
+reorder it to:
+
+ A0 → An → A1 → An-1 → A2 → An-2 → … 
+You must do this in-place without altering the nodes' values.
+
+
+
+Problem Constraints
+1 <= |A| <= 106
+
+
+
+Input Format
+The first and the only argument of input contains a pointer to the head of the linked list A.
+
+
+
+Output Format
+Return a pointer to the head of the modified linked list.
+
+
+
+Example Input
+Input 1:
+
+ A = [1, 2, 3, 4, 5] 
+Input 2:
+
+ A = [1, 2, 3, 4] 
+
+
+Example Output
+Output 1:
+
+ [1, 5, 2, 4, 3] 
+Output 2:
+
+ [1, 4, 2, 3] 
+
+
+Example Explanation
+Explanation 1:
+
+ The array will be arranged to [A0, An, A1, An-1, A2].
+Explanation 2:
+
+ The array will be arranged to [A0, An, A1, An-1, A2].
+
+
+ Solution:
+
+ /**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+int calculateSize(ListNode *A){
+    ListNode *traverse=A;
+    int count=0;
+    while(traverse!=NULL){
+        count++;
+        traverse=traverse->next;
+    }
+    return count;
+}
+
+ListNode *reverse(ListNode *A){
+    ListNode *prev=NULL;
+    ListNode *future;
+    ListNode *current=A;
+
+    while(current!=NULL){
+        future=current->next;
+        current->next=prev;
+
+        prev=current;
+        current=future;
+    }
+    return prev;
+}
+
+ListNode* Solution::reorderList(ListNode* A) {
+    int size=calculateSize(A);
+    ListNode *partA=A;
+    int sz=(size+1)/2;
+    for (int i=1; i<sz; i++){
+        A=A->next;
+    }
+
+    ListNode *partB=reverse(A->next);
+    A->next=NULL;
+    ListNode  *sol=partA;
+
+    while(partA!=NULL && partB!=NULL){
+        ListNode *futureA=partA->next;
+        ListNode *futureB=partB->next;
+        partA->next=partB;
+        partB->next=futureA;
+        partB=futureB;
+        partA=futureA;
+    }
+
+    return sol;
+
+}
+
+
